@@ -21,7 +21,7 @@ function Home() {
       try {
         const popularMovies = await getPopularMovies(page);
         setMovies(popularMovies?.results || []); // ✅ safe check
-        setTotalPages(popularMovies.total_pages || 1); 
+        setTotalPages(Math.min(popularMovies.total_pages || 1, 500)); 
         console.log("Popular movies data:", popularMovies);
         }
          catch (err) {
