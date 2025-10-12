@@ -1,6 +1,7 @@
 const API_KEY = "d6c69859103262645ace59a3d2e42045";
 const BASE_URL = "https://api.themoviedb.org/3";
 
+// fetching for showing the details
 export const getPopularMovies = async (page = 1) => {
   try{
     const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
@@ -11,6 +12,7 @@ export const getPopularMovies = async (page = 1) => {
   }
 };
 
+// fetching for search query
 export const searchMovies = async (query, page = 1) => {
  try{
   const response = await fetch(
@@ -19,13 +21,14 @@ export const searchMovies = async (query, page = 1) => {
     )}&page=${page}`
   );
   const data = await response.json();
-  return data.results;
+  return data;
 }catch(error){
     console.error("Error Searching Movies:", error)
     return {results: [], total_pages: 1};
 }
 };
 
+// fetching for get movie deatails
 export const getMovieDetails = async(id) => {
   try{
     const res = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`)

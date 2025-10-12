@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/Pagination.css"; // optional styling file
+import "../css/Pagination.css"; 
 
 function Pagination({ page, totalPages, onPageChange }) {
   const maxPagesToShow = 5;
@@ -12,13 +12,13 @@ function Pagination({ page, totalPages, onPageChange }) {
   }
 
   return (
-    <div className="pagination">
+    <div className="pagination-wrapper">
       <button
+        className="carousel-btn prev-btn"
         disabled={page === 1}
         onClick={() => onPageChange(page - 1)}
-        className="page-btn"
       >
-        Prev
+        ❮
       </button>
 
       {startPage > 1 && (
@@ -49,12 +49,12 @@ function Pagination({ page, totalPages, onPageChange }) {
         </>
       )}
 
-      <button
+       <button
+        className="carousel-btn next-btn"
         disabled={page === totalPages}
         onClick={() => onPageChange(page + 1)}
-        className="page-btn"
       >
-        Next
+        ❯
       </button>
     </div>
   );
