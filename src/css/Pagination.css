@@ -22,7 +22,7 @@
   z-index:10000;
 }
 .carousel-btn:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background: linear-gradient(135deg, #0A0F1A 0%, #1c4274 40%, #0078FF 100%);
 }
 
 .carousel-btn:disabled {
