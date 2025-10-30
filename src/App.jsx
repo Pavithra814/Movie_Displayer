@@ -1,12 +1,13 @@
+import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./css/App.css";
 import Favorites from "./pages/Favorites";
 import Home from "./pages/Home";
-import { Routes, Route } from "react-router-dom";
 import { MovieProvider } from "./contexts/MovieContext";
 import NavBar from "./components/NavBar";
 import MovieDetails from "./components/MovieDetails";
-import { useState, useEffect } from "react";
 import { getPopularMovies, searchMovies } from "./services/api";
+import AuthForm from "./components/UserProfile";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -15,6 +16,11 @@ function App() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Reset page to 1 whenever searchQuery changes
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery]);
 
   // Fetch movies whenever searchQuery or page changes
   useEffect(() => {
@@ -37,6 +43,7 @@ function App() {
         setLoading(false);
       }
     };
+
 
     fetchMovies();
   }, [searchQuery, page]);
@@ -62,6 +69,7 @@ function App() {
           />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/profile/" element= {<AuthForm/>}/>
         </Routes>
       </main>
     </MovieProvider>

@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-export default function Search({ onSearch = () => {} }) {
+export default function Search({ onSearch = () => {
+} }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSearch(searchQuery.trim());
-    setSearchQuery("");
   };
 
   return (

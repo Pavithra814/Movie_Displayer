@@ -1,41 +1,65 @@
-const API_KEY = "d6c69859103262645ace59a3d2e42045";
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL = "https://localhost:7048/api";
 
-// fetching for showing the details
-export const getPopularMovies = async (page = 1) => {
-  try{
-    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
+// Get paginated movies
+export const getPopularMovies = async (page = 1, pageSize = 12) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/Movies/paged?pageNumber=${page}&pageSize=${pageSize}`
+    );
     const data = await response.json();
-    return data;
-  }catch(error){
-    console.error("Error fetching popular movies:", error);
+
+    return {
+      results: (data.movies || []), // Use backend IDs directly
+      total_pages: data.totalPages || 1
+    };
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    return { results: [], total_pages: 1 };
   }
 };
 
-// fetching for search query
-export const searchMovies = async (query, page = 1) => {
- try{
-  const response = await fetch(
-    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-      query
-    )}&page=${page}`
-  );
-  const data = await response.json();
-  return data;
-}catch(error){
-    console.error("Error Searching Movies:", error)
-    return {results: [], total_pages: 1};
-}
+// Search movies (pagination optional)
+export const searchMovies = async (query, page = 1, pageSize = 10) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/Movies/search?query=${encodeURIComponent(query)}&pageNumber=${page}&pageSize=${pageSize}`
+    );
+    if (!response.ok) throw new Error("Search failed");
+    const data = await response.json();
+    return {
+      results: data.movies || [],
+      total_pages: data.totalPages || 1,
+    };
+  } catch (error) {
+    console.error("Error searching movies:", error);
+    return { results: [], total_pages: 1 };
+  }
 };
 
-// fetching for get movie deatails
-export const getMovieDetails = async(id) => {
-  try{
-    const res = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`)
-    const data = await res.json();
-    return data;
-  }catch(error){
-    console.error("Error fetching Movie Details",error);
+// Get Movie Details
+export const getMovieDetails = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}/Movies/${id}`);
+    const movie = await res.json();
+
+    return {
+      ...movie,
+      genres: movie.genres ? movie.genres.split(",") : []
+    };
+  } catch (error) {
+    console.error("Error fetching movie details:", error);
     return null;
   }
-}
+};
+
+// Favorite toggle (dummy user id = 1)
+export const toggleFavorite = async (movieId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/Favourite/toggle?userId=1&movieId=${movieId}`, {
+      method: "POST"
+    });
+    return await res.json();
+  } catch (error) {
+    console.error("Error toggling favorite:", error);
+  }
+};

@@ -16,8 +16,7 @@ function MovieDetails() {
       try {
         const data = await getMovieDetails(id);
         setMovie(data);
-      } catch (err) {
-        console.error(err);
+      } catch {
         setError("Failed to load movie details.");
       } finally {
         setLoading(false);
@@ -31,26 +30,30 @@ function MovieDetails() {
   if (error) return <div>{error}</div>;
   if (!movie) return null;
 
-  return(
+  return (
     <div className="movie-details">
-        <div className="movie-title">
-            <h2>{movie.title}</h2>
+      <div className="movie-title">
+        <h2>{movie.title}</h2>
+      </div>
+      <div className="movie-body">
+        <div className="movie-body-poster">
+          <img src={movie.imageUrl} alt={movie.title} />
         </div>
-        <div className="movie-body">
-          <div className="movie-body-poster">
-            <img 
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-            />
-          </div>
-          <div className="movie-body-details">
-            <p><strong>Release Date:</strong> {movie.release_date}</p>
-            <p><strong>Overview:</strong> {movie.overview}</p>
-            <p><strong>Vote Average:</strong> {movie.vote_average}</p>
-            <p><strong>Vote Count:</strong> {movie.vote_count}</p>
-            <p><strong>Genres:</strong> {movie.genres?.map(g => g.name).join(", ")}</p>
-          </div>
+        <div className="movie-body-details">
+           <p><strong>Release Date:</strong> {movie.releaseDate}</p>
+          <p><strong>Story Line:</strong> {movie.storyLine}</p>
+          <p><strong>Audience Rating:</strong> {movie.audienceRating}</p>
+          <p><strong>Audience Count:</strong> {movie.audienceCount}</p>
+          <p><strong>Genres:</strong> {movie.genres}</p>
+          <p><strong>Runtime:</strong> {movie.runtimeMinutes} min</p>
+          <p><strong>Language:</strong> {movie.language}</p>
+          <p><strong>Director:</strong> {movie.director}</p>
+          <p><strong>Lead Actor:</strong> {movie.leadActor}</p>
+          <p><strong>Lead Actress:</strong> {movie.leadActress}</p>
+          <p><strong>Supporting Actors:</strong> {movie.supportingActors}</p>
+          <p><strong>Period:</strong> {movie.period}</p>
         </div>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import "../css/Home.css";
 import Pagination from "../components/Pagination";
 
 function Home({ movies, loading, error, page, totalPages, onPageChange }) {
+
   return (
     <div className="home">
       {error && <div className="error-message">{error}</div>}
@@ -15,9 +16,10 @@ function Home({ movies, loading, error, page, totalPages, onPageChange }) {
               <p>No movies found</p>
             ) : (
               movies.map((movie) => (
-                <MovieCard movie={movie} key={movie.id} />
+                <MovieCard movie = {movie} key = {movie.id}/>
               ))
-            )}
+            )
+             }
           </div>
 
           <Pagination
