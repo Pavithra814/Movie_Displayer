@@ -14,6 +14,16 @@ function MovieCard({ movie }) {
     if (favorite) removeFromFavorites(movie.id);
     else addToFavorites(movie);
   }
+  function getDriveDirectUrl(url) {
+  const match = url.match(/\/d\/(.*?)\//);
+  if (match) {
+    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  }
+  return url;
+}
+
+<img src={getDriveDirectUrl(movie.imageUrl)} alt={movie.title} />
+
 
   return (
     <div className="movie-card">

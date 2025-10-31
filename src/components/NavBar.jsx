@@ -24,9 +24,9 @@ function NavBar({ setSearchQuery }) {
           Favorites
         </NavLink>
         <Search onSearch={setSearchQuery} />
-        <NavLink to="/profile" className = "nav-link">
+        {/* <NavLink to="/profile" className = "nav-link">
           Profile
-        </NavLink>
+        </NavLink> */}
       </div>
     </nav>
   );

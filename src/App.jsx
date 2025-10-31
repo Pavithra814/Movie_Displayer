@@ -69,7 +69,7 @@ function App() {
           />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/profile/" element= {<AuthForm/>}/>
+          {/* <Route path="/profile/" element= {<AuthForm/>}/> */}
         </Routes>
       </main>
     </MovieProvider>
